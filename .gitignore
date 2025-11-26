@@ -1,0 +1,14 @@
+# Maven build outputs
+/target/
+
+# Local Maven caches for offline builds
+/.maven-cache/
+/.m2/
+/.mvn/local-repo/
+
+# IDE
+/.idea/
+*.iml
+
+# OS
+.DS_Store
