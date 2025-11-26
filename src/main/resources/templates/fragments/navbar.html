@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3" th:fragment="navbar">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/products}">Интернет-магазин</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Переключить навигацию">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/products}">Каталог</a>
+                </li>
+                <li class="nav-item"
+                    th:if="${#authorization.expression('isAuthenticated()')}">
+                    <a class="nav-link" th:href="@{/orders/my}">Мои заказы</a>
+                </li>
+                <li class="nav-item"
+                    th:if="${#authorization.expression('hasRole(''ADMIN'')}">
+                    <a class="nav-link" th:href="@{/admin}">Админка</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/about}">Об авторе</a>
+                </li>
+            </ul>
+            <span class="navbar-text me-2"
+                  th:if="${#authorization.expression('isAuthenticated()')}">
+                <span th:text="${#authentication.name}">username</span>
+            </span>
+            <form th:if="${#authorization.expression('isAuthenticated()')}"
+                  th:action="@{/logout}" method="post" class="d-inline">
+                <button class="btn btn-outline-light" type="submit">Выйти</button>
+            </form>
+            <div th:if="${#authorization.expression('!isAuthenticated()')}">
+                <a class="btn btn-outline-light me-2" th:href="@{/login}">Войти</a>
+                <a class="btn btn-success" th:href="@{/register}">Регистрация</a>
+            </div>
+        </div>
+    </div>
+</nav>
+</body>
+</html>
